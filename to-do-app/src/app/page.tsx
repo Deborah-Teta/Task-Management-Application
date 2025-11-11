@@ -103,7 +103,7 @@ export default function Dashboard() {
           </li>
         ))}
       </ul>
-      {/* <button onClick={handleLogOut} className="mt-4 text-sm px-4 py-2 text-blue-600"> signOut</button> */}
+      
     </div>
   );
 }
