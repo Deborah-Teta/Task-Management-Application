@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { addDoc, collection, deleteDoc, doc, getDocs, query, updateDoc, where } from "firebase/firestore";
 import { Task } from "./types/Task";
+import { signOut } from "firebase/auth";
 
 export default function Dashboard() {
   const [user, loading] = useAuthState(auth);
@@ -56,10 +57,15 @@ export default function Dashboard() {
     fetchTasks();
   };
 
-  const handleLogout = async () => {
-    await auth.signOut();
-    router.push("/login");
-  };
+  const handleLogOut = async () =>{
+    try{
+      await signOut(auth)
+      alert('Logged out successfully')
+      router.push('/Login')
+    } catch (error: any) {
+      alert(error.message)
+    }
+  }
 
   useEffect(() => {
     if (loading) return;
@@ -72,7 +78,7 @@ export default function Dashboard() {
   return (
     <div className="p-4 max-w-md mx-auto">
       <h1 className="text-2xl mb-4">Hello, {user.email}</h1>
-      <button className="bg-red-500 text-white p-2 mb-4" onClick={handleLogout}>Logout</button>
+      <button className="bg-red-500 text-white p-2 mb-4" onClick={handleLogOut}>Logout</button>
       <form onSubmit={(e) => { e.preventDefault(); handleSubmit(); }} className="mb-4">
         <input className="border p-2 w-full mb-2" value={title} onChange={(e) => setTitle(e.target.value)} placeholder="Title" />
         <input className="border p-2 w-full mb-2" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Description" />
@@ -97,6 +103,7 @@ export default function Dashboard() {
           </li>
         ))}
       </ul>
+      {/* <button onClick={handleLogOut} className="mt-4 text-sm px-4 py-2 text-blue-600"> signOut</button> */}
     </div>
   );
 }
