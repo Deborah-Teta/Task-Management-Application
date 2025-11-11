@@ -24,3 +24,4 @@ Run npm install to install dependencies (including firebase, react-firebase-hook
 Add your Firebase config in .env.local (e.g., NEXT_PUBLIC_FIREBASE_API_KEY=your_key, etc.).
 Run npm run dev to start the development server at http://localhost:3000.
 
+here is  live deployed link: https://task-management-application-ten-black.vercel.app/
